@@ -34,7 +34,7 @@ class MobileFormer(nn.Module):
         self.token = nn.Parameter(nn.Parameter(torch.randn(1, cfg['token'], cfg['embed'])))
         # stem 3 224 224 -> 16 112 112
         self.stem = nn.Sequential(
-            nn.Conv2d(3, cfg['stem'], kernel_size=3, stride=1, padding=1, bias=False),
+            nn.Conv2d(3, cfg['stem'], kernel_size=3, stride=2, padding=1, bias=False),
             nn.BatchNorm2d(cfg['stem']),
             hswish(),
         )
@@ -55,7 +55,7 @@ class MobileFormer(nn.Module):
         exp = cfg['body'][-1]['exp']
         self.conv = nn.Conv2d(inp, exp, kernel_size=1, stride=1, padding=0, bias=False)
         self.bn = nn.BatchNorm2d(exp)
-        self.avg = nn.AvgPool2d((4, 4))
+        self.avg = nn.AvgPool2d((7, 7))
         self.head = nn.Sequential(
             nn.Linear(exp + cfg['embed'], cfg['fc1']),
             hswish(),
