@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 
 # import packages
+# data augmentation for subset of imagenet
 import os
 from keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.utils import img_to_array, load_img
